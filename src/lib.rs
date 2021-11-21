@@ -195,6 +195,7 @@ where
         T: Fetch<'a> + DeserializeOwned,
     {
         self.0.path.push_str(FMT_JSON);
+        self.0.path.push_str("&limit=100");
         self.include_to_path();
         let request = HTTP_CLIENT.get(&self.0.path);
         HTTP_CLIENT.send_with_retries(request)?.json()
