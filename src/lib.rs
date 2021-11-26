@@ -349,8 +349,10 @@ pub trait Fetch<'a> {
     where
         Self: Sized + Path<'a>,
     {
+        let url: &str = &std::env::var("MUSICBRAINZ_BASE_URL").unwrap_or(BASE_URL.to_string());
+
         FetchQuery(Query {
-            path: format!("{}/{}", BASE_URL, Self::path()),
+            path: format!("{}/{}", url, Self::path()),
             phantom: PhantomData,
             include: vec![],
         })
@@ -395,8 +397,10 @@ pub trait Browse<'a> {
     where
         Self: Sized + Path<'a>,
     {
+        let url: &str = &std::env::var("MUSICBRAINZ_BASE_URL").unwrap_or(BASE_URL.to_string());
+
         BrowseQuery(Query {
-            path: format!("{}/{}", BASE_URL, Self::path()),
+            path: format!("{}/{}", url, Self::path()),
             phantom: PhantomData,
             include: vec![],
         })
@@ -409,8 +413,10 @@ pub trait Search<'a> {
     where
         Self: Sized + Path<'a>,
     {
+        let url: &str = &std::env::var("MUSICBRAINZ_BASE_URL").unwrap_or(BASE_URL.to_string());
+
         SearchQuery(Query {
-            path: format!("{}/{}{}&{}", BASE_URL, Self::path(), FMT_JSON, query),
+            path: format!("{}/{}{}&{}", url, Self::path(), FMT_JSON, query),
             phantom: PhantomData,
             include: vec![],
         })
